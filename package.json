@@ -1,0 +1,35 @@
+{
+  "name": "backendcomtypescript",
+  "version": "1.0.0",
+  "description": "Projeto da disciplina_Pós graduação Desenvolvimento Full Stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx tsx --watch ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathassouto/BackendComTypescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/jonathassouto/BackendComTypescript/issues"
+  },
+  "homepage": "https://github.com/jonathassouto/BackendComTypescript#readme",
+  "dependencies": {
+    "@asteasolutions/zod-to-openapi": "^9.1.0",
+    "express": "^5.2.1",
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.2.0",
+    "@types/swagger-ui-express": "^4.1.8",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}
