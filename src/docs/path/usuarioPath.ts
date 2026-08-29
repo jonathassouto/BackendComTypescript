@@ -2,14 +2,15 @@ import { RouteConfig } from "@asteasolutions/zod-to-openapi";
 import { DocSwagger } from "../config.js";
 import {
   createUsuarioSchema,
+  loginUsuarioSchema,
   usuarioSchemaDto,
 } from "../schema/usuarioSchema.js";
 
-/**Rota get */
-export const routerGet: void = DocSwagger.getInstance().registryDocsPath({
+/**Rota Post Usuario */
+export const routerPostUser: void = DocSwagger.getInstance().registryDocsPath({
   method: "post",
   path: "/user",
-  summary: "Criação de login para usuário",
+  summary: "Rota criação de usuário",
   tags: ["Usuário"],
   request: {
     body: {
@@ -29,5 +30,30 @@ export const routerGet: void = DocSwagger.getInstance().registryDocsPath({
       },
     },
   },
-  security: [{ bearerAuth: [] }],
+});
+
+/*Rota Post login*/
+export const routerPostLogin: void = DocSwagger.getInstance().registryDocsPath({
+  method: "post",
+  path: "/user/login",
+  summary: "Rota para loign de usuário",
+  tags: ["Usuário"],
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: loginUsuarioSchema,
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: createUsuarioSchema,
+        },
+      },
+    },
+  },
 });

@@ -1,6 +1,6 @@
 import { typeToFlattenedError } from "zod/v3";
 
-type flattenedScema = typeToFlattenedError<any, string> | null;
+type flattenedScema = typeToFlattenedError<any, string> | "";
 
 export default class BusinessError extends Error {
   statusHttp: number;
@@ -11,7 +11,7 @@ export default class BusinessError extends Error {
     statusHttp: number,
     message: string,
     details: string = "",
-    schema: flattenedScema = null,
+    schema: flattenedScema = "",
   ) {
     super(message);
     this.statusHttp = statusHttp;

@@ -15,5 +15,6 @@ export function validateSchema(schema: ZodObject<any>) {
         z.flattenError(validate.error),
       );
     }
+    next();
   };
 }

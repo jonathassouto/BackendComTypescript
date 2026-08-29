@@ -15,6 +15,11 @@ export const createUsuarioSchema = zod.object({
   senha: zod.string(),
 });
 
+export const loginUsuarioSchema = zod.object({
+  email: zod.email(),
+  senha: zod.string(),
+});
+
 DocSwagger.getInstance().registryDocsSchema(
   "usuarioSchemaDto",
   usuarioSchemaDto,
@@ -23,4 +28,9 @@ DocSwagger.getInstance().registryDocsSchema(
 DocSwagger.getInstance().registryDocsSchema(
   "createUsuarioSchema",
   createUsuarioSchema,
+);
+
+DocSwagger.getInstance().registryDocsSchema(
+  "loginUsuarioSchema",
+  loginUsuarioSchema,
 );
