@@ -1,19 +1,42 @@
 import {
   OpenAPIRegistry,
   OpenApiGeneratorV3,
+  RouteConfig,
 } from "@asteasolutions/zod-to-openapi";
-import type { OpenAPIDefinitions } from "@asteasolutions/zod-to-openapi/dist/openapi-registry.js";
+import { OpenAPIObject } from "@asteasolutions/zod-to-openapi/dist/types.js";
+import zod from "zod";
 
-const registryDocs: OpenAPIRegistry = new OpenAPIRegistry();
+export class DocSwagger {
+  private static _DocsSwaggerInstance: DocSwagger;
+  protected registry: OpenAPIRegistry;
 
-const generateDocs = new OpenApiGeneratorV3(registryDocs.definitions);
+  constructor() {
+    this.registry = new OpenAPIRegistry();
+  }
 
-const docSwagger = generateDocs.generateDocument({
-  openapi: "3.0.0",
-  info: {
-    title: "Barbershop API",
-    version: "1.0.0",
-  },
-});
+  static getInstance(): DocSwagger {
+    if (!DocSwagger._DocsSwaggerInstance) {
+      DocSwagger._DocsSwaggerInstance = new DocSwagger();
+    }
+    return DocSwagger._DocsSwaggerInstance;
+  }
 
-export { docSwagger };
+  registryDocsPath(value: RouteConfig): void {
+    this.registry.registerPath(value);
+  }
+  registryDocsSchema(name: string, value: zod.ZodObject): void {
+    this.registry.register(name, value);
+  }
+
+  generate() {
+    const docSwagger = new OpenApiGeneratorV3(this.registry.definitions);
+
+    return docSwagger.generateDocument({
+      openapi: "3.0.0",
+      info: {
+        title: "Barbershop API",
+        version: "1.0.0",
+      },
+    });
+  }
+}

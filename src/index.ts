@@ -1,12 +1,27 @@
-import express, { Express } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import swaggerui from "swagger-ui-express";
-import { docSwagger } from "./docs/config.js";
+import { DocSwagger } from "./docs/config.js";
+import "./docs/path/usuarioPath.js";
+import { routeUsuario } from "./routers/usuarioRouters.js";
+import { handleError } from "./middlewares/handlerError.js";
 
 const app: Express = express();
 
 app.use(express.json());
 
-app.use("/docs", swaggerui.serve, swaggerui.setup(docSwagger));
+app.use(
+  "/docs",
+  swaggerui.serve,
+  swaggerui.setup(DocSwagger.getInstance().generate()),
+);
+
+app.use("/user", routeUsuario);
+
+app.use(
+  (error: Error, request: Request, response: Response, next: NextFunction) => {
+    handleError(error, request, response, next);
+  },
+);
 
 app.listen(3030, "localhost", (): void => {
   console.log(`Servidor em execução!`);
