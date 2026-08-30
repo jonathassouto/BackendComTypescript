@@ -9,7 +9,7 @@ import {
 /**Rota Post Usuario */
 export const routerPostUser: void = DocSwagger.getInstance().registryDocsPath({
   method: "post",
-  path: "/user",
+  path: "/usuario",
   summary: "Rota criação de usuário",
   tags: ["Usuário"],
   request: {
@@ -35,7 +35,7 @@ export const routerPostUser: void = DocSwagger.getInstance().registryDocsPath({
 /*Rota Post login*/
 export const routerPostLogin: void = DocSwagger.getInstance().registryDocsPath({
   method: "post",
-  path: "/user/login",
+  path: "/usario/login",
   summary: "Rota para loign de usuário",
   tags: ["Usuário"],
   request: {

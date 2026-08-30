@@ -1,4 +1,4 @@
-import UsuarioController from "../controllers/usuarioControllers.js";
+import UsuarioController from "../controllers/usuarioController.js";
 import { UsuarioRepository } from "../repository/usuarioRepository.js";
 import { UsuarioService } from "../services/usuarioService.js";
 

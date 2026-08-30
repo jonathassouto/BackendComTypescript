@@ -42,6 +42,8 @@ export class UsuarioService {
 
     const token = jsonwebtoken.sign(
       {
+        id: getUsuario.id,
+        nome: getUsuario.nome,
         email: usuario.email,
       },
       jwtConfig.secret,

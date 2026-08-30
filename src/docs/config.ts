@@ -29,6 +29,12 @@ export class DocSwagger {
   }
 
   generate() {
+    this.registry.registerComponent("securitySchemes", "bearerAuth", {
+      type: "http",
+      scheme: "bearer",
+      bearerFormat: "JWT",
+    });
+
     const docSwagger = new OpenApiGeneratorV3(this.registry.definitions);
 
     return docSwagger.generateDocument({
@@ -38,5 +44,7 @@ export class DocSwagger {
         version: "1.0.0",
       },
     });
+
+    return docSwagger;
   }
 }
