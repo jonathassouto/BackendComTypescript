@@ -7,6 +7,6 @@ export default class AgendamentoService {
   }
 
   async save(value: Agendamento) {
-    this.agendamentoRepository.save(value);
+    return await this.agendamentoRepository.save(value);
   }
 }

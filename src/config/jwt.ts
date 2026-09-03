@@ -4,7 +4,7 @@ import jsonwebtoken from "jsonwebtoken";
 dotenv.config();
 
 interface tokenConfig {
-  secret: jsonwebtoken.Secret | jsonwebtoken.PrivateKey;
+  secret: string; //jsonwebtoken.Secret | jsonwebtoken.PrivateKey;
   expire: string | undefined;
 }
 

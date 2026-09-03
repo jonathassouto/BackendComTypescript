@@ -4,12 +4,10 @@ import jsonwebtoken from "jsonwebtoken";
 import jwtConfig from "../config/jwt.js";
 import { JwtPayload } from "jsonwebtoken";
 
+export type RequestAuth = Request & { payload: string };
+
 export default function handleAuth() {
-  return (
-    request: Request & { payload: JwtPayload },
-    response: Response,
-    next: NextFunction,
-  ) => {
+  return (request: Request, response: Response, next: NextFunction) => {
     const token = request.headers.authorization;
 
     if (!token) {
@@ -17,10 +15,13 @@ export default function handleAuth() {
     }
 
     try {
-      request.payload = jsonwebtoken.verify(
-        token.replace("Bearer ", "").trim(),
-        jwtConfig.secret,
+      (request as RequestAuth).payload = JSON.stringify(
+        jsonwebtoken.verify(
+          token.replace("Bearer ", "").trim(),
+          jwtConfig.secret,
+        ),
       );
+      next();
     } catch (error) {
       throw new BusinessError(401, "Token Inválido");
     }

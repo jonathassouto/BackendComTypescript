@@ -5,12 +5,12 @@ import { DocSwagger } from "../../docs/config.js";
 extendZodWithOpenApi(zod);
 
 export const usuarioSchemaDto = zod.object({
-  name: zod.string().openapi({ example: "Miles Morales" }),
+  nome: zod.string().openapi({ example: "Miles Morales" }),
   email: zod.email(),
 });
 
 export const createUsuarioSchema = zod.object({
-  name: zod.string().openapi({ example: "Miles Morales" }),
+  nome: zod.string().openapi({ example: "Miles Morales" }),
   email: zod.email(),
   senha: zod.string(),
 });

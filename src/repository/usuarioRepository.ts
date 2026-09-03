@@ -7,7 +7,14 @@ export class UsuarioRepository {
   protected database: Usuario[];
 
   constructor() {
-    this.database = [];
+    this.database = [
+      {
+        nome: "Miles Morales",
+        email: "user@example.com",
+        senha: "$2b$10$JSAx.rywetN5Pgc8Q9avoOYKT.rkxY7zw86ema2DunU8ZQsxnHvQa",
+        id: 1,
+      },
+    ];
   }
 
   static getInstance(): UsuarioRepository {
@@ -22,6 +29,8 @@ export class UsuarioRepository {
     value["senha"] = await bcrypt.hash(value.senha, 10);
 
     await this.database.push(value);
+
+    console.log(this.database);
     return value.id;
   }
 

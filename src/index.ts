@@ -5,6 +5,7 @@ import "./docs/path/usuarioPath.js";
 import "./docs/path/agendamentoPath.js";
 import { routeUsuario } from "./routers/usuarioRouters.js";
 import { handleError } from "./middlewares/handlerError.js";
+import { routeAgendamento } from "./routers/agendamentoRoute.js";
 
 const app: Express = express();
 
@@ -23,6 +24,7 @@ app.use(
 );
 
 app.use("/usuario", routeUsuario);
+app.use("/agendamento", routeAgendamento);
 
 app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {

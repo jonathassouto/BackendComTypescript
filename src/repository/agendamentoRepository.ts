@@ -17,6 +17,9 @@ export class AgendamentoRepository {
   }
 
   async save(value: Agendamento) {
+    value.id = this.database.length + 1;
     this.database.push(value);
+    console.log(this.database);
+    return value.id;
   }
 }

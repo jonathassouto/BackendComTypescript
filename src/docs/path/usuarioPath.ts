@@ -35,7 +35,7 @@ export const routerPostUser: void = DocSwagger.getInstance().registryDocsPath({
 /*Rota Post login*/
 export const routerPostLogin: void = DocSwagger.getInstance().registryDocsPath({
   method: "post",
-  path: "/usario/login",
+  path: "/usuario/login",
   summary: "Rota para loign de usuário",
   tags: ["Usuário"],
   request: {
