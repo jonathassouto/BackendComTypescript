@@ -15,4 +15,21 @@ routeAgendamento.post(
   },
 );
 
+routeAgendamento.get("/", handleAuth(), async (request, response) => {
+  await controllerAgendamento.getByUserId(request, response);
+});
+
+routeAgendamento.put(
+  "/:id",
+  validateSchema(createAgendamentoSchema),
+  handleAuth(),
+  async (request, response) => {
+    await controllerAgendamento.alterDate(request, response);
+  },
+);
+
+routeAgendamento.delete("/:id", handleAuth(), async (request, response) => {
+  await controllerAgendamento.deleteByID(request, response);
+});
+
 export { routeAgendamento };

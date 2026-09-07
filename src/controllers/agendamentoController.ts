@@ -17,9 +17,7 @@ export default class AgendamentoController {
       idusuario: payload.id,
       data: body.data,
       dataAlteracao: "",
-      dataCriacao: new Date().toLocaleDateString("en-CA", {
-        timeZone: "America/Sao_Paulo",
-      }),
+      dataCriacao: "",
     };
 
     //console.log(payload);
@@ -37,5 +35,35 @@ export default class AgendamentoController {
         "Falha ao registrar o agendamento. Entre em contato com o suporte técnico.",
       );
     }
+  }
+
+  async getByUserId(request: Request, response: Response) {
+    const user = JSON.parse((request as RequestAuth).payload);
+
+    const data = await this.agendamentoService.getByUserId(user.id);
+
+    return response.status(200).json(data);
+  }
+
+  async alterDate(request: Request, response: Response) {
+    const parameters = request.params;
+    const data = request.body.data;
+
+    await this.agendamentoService.alterDate(Number(parameters.id), data);
+
+    response.status(200).json({
+      status: "success",
+      message: `Data de agandamento alterada para ${data}`,
+    });
+  }
+
+  async deleteByID(request: Request, response: Response) {
+    const parameters = request.params;
+
+    await this.agendamentoService.deleteByID(Number(parameters.id));
+    response.status(200).json({
+      status: "success",
+      message: `Agendamento excluído com sucesso!!`,
+    });
   }
 }

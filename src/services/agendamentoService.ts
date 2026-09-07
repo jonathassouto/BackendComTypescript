@@ -6,7 +6,22 @@ export default class AgendamentoService {
     this.agendamentoRepository = agendamentoRepository;
   }
 
-  async save(value: Agendamento) {
+  async save(value: Agendamento): Promise<number> {
+    value.data = this.agendamentoRepository.formatDate(new Date(value.data));
+    value.dataCriacao = this.agendamentoRepository.formatDate(new Date());
+
     return await this.agendamentoRepository.save(value);
+  }
+
+  async getByUserId(id: number): Promise<Agendamento[]> {
+    return await this.agendamentoRepository.getByUserId(id);
+  }
+
+  async deleteByID(id: number) {
+    await this.agendamentoRepository.deleteByID(id);
+  }
+
+  async alterDate(id: number, newdate: string) {
+    await this.agendamentoRepository.alterDate(id, newdate);
   }
 }

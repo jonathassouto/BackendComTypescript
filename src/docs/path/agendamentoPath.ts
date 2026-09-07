@@ -29,3 +29,83 @@ export const routerPostAgendamento: void =
     },
     security: [{ bearerAuth: [] }],
   });
+
+DocSwagger.getInstance().registryDocsPath({
+  method: "get",
+  path: "/agendamento",
+  summary: "Rota consulta agendamento",
+  tags: ["Agendamento"],
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: responseSchema,
+        },
+      },
+    },
+  },
+  security: [{ bearerAuth: [] }],
+});
+
+DocSwagger.getInstance().registryDocsPath({
+  method: "put",
+  path: "/agendamento/{id}",
+  summary: "Rota alterar data agendamento",
+  tags: ["Agendamento"],
+  parameters: [
+    {
+      name: "id",
+      in: "path",
+      required: true,
+      schema: {
+        type: "integer",
+      },
+    },
+  ],
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: createAgendamentoSchema,
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: responseSchema,
+        },
+      },
+    },
+  },
+  security: [{ bearerAuth: [] }],
+});
+
+DocSwagger.getInstance().registryDocsPath({
+  method: "delete",
+  path: "/agendamento/{id}",
+  summary: "Rota excluir agendamento",
+  tags: ["Agendamento"],
+  parameters: [
+    {
+      name: "id",
+      in: "path",
+      required: true,
+      schema: {
+        type: "integer",
+      },
+    },
+  ],
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: responseSchema,
+        },
+      },
+    },
+  },
+  security: [{ bearerAuth: [] }],
+});
