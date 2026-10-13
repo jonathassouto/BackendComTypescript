@@ -1,3 +1,4 @@
+import { Query } from "mongoose";
 import { Agendamento } from "../modules/agendamento/agendamento.js";
 import { AgendamentoRepository } from "../repository/agendamentoRepository.js";
 
@@ -13,7 +14,7 @@ export default class AgendamentoService {
     return await this.agendamentoRepository.save(value);
   }
 
-  async getByUserId(id: number): Promise<Agendamento[]> {
+  async getByUserId(id: number): Promise<any> {
     return await this.agendamentoRepository.getByUserId(id);
   }
 

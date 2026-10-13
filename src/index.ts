@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express, { Express, NextFunction, Request, Response } from "express";
 import swaggerui from "swagger-ui-express";
 import { DocSwagger } from "./docs/config.js";
@@ -6,6 +7,9 @@ import "./docs/path/agendamentoPath.js";
 import { routeUsuario } from "./routers/usuarioRouters.js";
 import { handleError } from "./middlewares/handlerError.js";
 import { routeAgendamento } from "./routers/agendamentoRoute.js";
+import DatabaseConnect from "./repository/database.js";
+
+//dotenv.config();
 
 const app: Express = express();
 
@@ -32,6 +36,7 @@ app.use(
   },
 );
 
-app.listen(3030, "localhost", (): void => {
+app.listen(3030, "localhost", async (): Promise<void> => {
+  await DatabaseConnect.getInstance().connect();
   console.log(`Servidor em execução!`);
 });

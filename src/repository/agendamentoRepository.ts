@@ -1,4 +1,5 @@
 import BusinessError from "../error/AppError.js";
+import { AgendamentoModel } from "../model/agendamento.model.js";
 import { Agendamento } from "../modules/agendamento/agendamento.js";
 
 export class AgendamentoRepository {
@@ -27,45 +28,45 @@ export class AgendamentoRepository {
 
   async save(value: Agendamento) {
     value.id = this.database.length + 1;
-    this.database.push(value);
-    console.log(this.database);
+    const docAgendamento = new AgendamentoModel(value);
+    await docAgendamento.save();
+    console.log(docAgendamento.toJSON());
     return value.id;
   }
 
   async get() {
-    return this.database;
+    return await AgendamentoModel.find({});
   }
 
   async getByUserId(id: number) {
-    const data = this.database.filter((i) => i.idusuario === id);
+    const docs = await AgendamentoModel.find({ idusuario: id }).exec();
 
-    return await data;
+    //const data = this.database.filter((i) => i.idusuario === id);
+
+    return docs;
   }
 
   async getById(id: number) {
-    const data = this.database.filter((i) => i.id === id)[0];
+    const data = await AgendamentoModel.findOne({ id: id }).exec();
 
     if (!data) {
       throw new BusinessError(400, "ID do agendamento não encontrado!");
     }
 
-    return await data;
+    return data;
   }
 
   async alterDate(id: number, newdate: string) {
-    const agendamento = await this.getById(id);
+    let agendamento = await this.getById(id);
+
     agendamento.dataAlteracao = this.formatDate(new Date());
-    agendamento!.data = this.formatDate(new Date(newdate));
-    console.log(this.database);
+    agendamento.data = this.formatDate(new Date(newdate));
+
+    agendamento = await agendamento.save();
   }
 
   async deleteByID(id: number): Promise<void> {
-    const agendamento = await this.getById(id);
-    const index = this.database.indexOf(agendamento);
-
-    this.database.splice(index, 1);
-
-    console.log(this.database);
+    await AgendamentoModel.deleteOne({ id: id });
   }
 
   formatDate(data: Date) {
